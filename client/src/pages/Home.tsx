@@ -295,8 +295,8 @@ function Hero() {
         Internal evaluation · Data &amp; AI · May 2026
       </div>
       <h1 className="display text-[58px] md:text-[80px] leading-[0.95] font-semibold tracking-tight">
-        The Hex<br />
-        <span className="italic font-light text-foreground/85">opportunity, examined.</span>
+        Hex.tech,<br />
+        <span className="italic font-light text-foreground/85">opportunity examined.</span>
       </h1>
       <p className="mt-8 max-w-2xl text-[17px] leading-[1.75] text-foreground/80">
         A strategic framework for integrating Hex.tech into the modern analytics ecosystem. 
