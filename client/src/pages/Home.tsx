@@ -228,10 +228,10 @@ function Hero() {
         <span className="italic font-light text-foreground/85">opportunity, examined.</span>
       </h1>
       <p className="mt-8 max-w-2xl text-[17px] leading-[1.75] text-foreground/80">
-        A decision-ready brief on whether — and how — to bring Hex.tech into our analytics stack.
-        Reads the sales conversation against our existing Looker / Tableau / Niki footprint, surfaces
-        the value, the risks, and the negotiation priorities, and gives us a live simulator to
-        pressure-test commercial scenarios.
+        A strategic framework for integrating Hex.tech into the modern analytics ecosystem. 
+        This brief evaluates Hex as a high-leverage complement to our existing Looker and Niki 
+        footprint, detailing the incremental value, commercial risks, and negotiation 
+        priorities required to secure a sustainable partnership.
       </p>
 
       <div className="flex flex-wrap items-center gap-3 mt-8">
