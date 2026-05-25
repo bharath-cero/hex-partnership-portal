@@ -23,7 +23,7 @@ export default function Home() {
       <Chapter id="context" number="01" title="Where Hex would land" kicker="Organizational context">
         <p>
           The Hex conversation is not entering greenfield. We operate at meaningful scale with an established
-          governed-BI stack, an existing semantic layer in LookML, and a growing internal AI assistant (Niki).
+          governed data stack, an existing semantic layer in LookML, and a growing internal AI assistant (Niki).
           Any commercial move with Hex must therefore be evaluated as an <em>additive</em> motion, not a
           replacement. The question is which workflows justify a second authoring surface and a new commercial line.
         </p>
@@ -65,9 +65,9 @@ export default function Home() {
           dashboards and below conversational AI.
         </p>
         <Decision title="Adopt Hex narrowly and intentionally">
-          Reserve Hex for the 15–20% of workflows that traditional BI under-serves: interactive operational
+          Reserve Hex for the 15–20% of workflows that traditional analytics under-serves: interactive operational
           tools, custom investigations, embedded analytics, and modeling-heavy work. Do not commit to a
-          wholesale BI migration in this contract cycle.
+          wholesale analytics migration in this contract cycle.
         </Decision>
       </Chapter>
 
@@ -89,7 +89,7 @@ export default function Home() {
         </p>
         <Marginalia>
           Explorers in Hex gain access to notebooks, custom modeling, and richer investigation than
-          conversational BI alone can offer.
+          conversational analytics alone can offer.
         </Marginalia>
       </Chapter>
 
@@ -110,7 +110,7 @@ export default function Home() {
         </div>
 
         <Decision title={VALUE_CALLOUT}>
-          The commercial case is strongest when scoped to workflows traditional BI cannot serve. Avoid
+          The commercial case is strongest when scoped to workflows traditional analytics cannot serve. Avoid
           paying author-seat prices for dashboards that already work in Looker.
         </Decision>
       </Chapter>
@@ -252,7 +252,7 @@ function Hero() {
         <dt className="col-span-2 md:col-span-1 text-muted-foreground uppercase tracking-[0.16em] text-[11px]">Prepared for</dt>
         <dd className="md:col-span-3">Data &amp; AI leadership · negotiation working group</dd>
         <dt className="col-span-2 md:col-span-1 text-muted-foreground uppercase tracking-[0.16em] text-[11px]">Posture</dt>
-        <dd className="md:col-span-3">Complement to existing BI; controlled rollout; aggressive on commercial protections</dd>
+        <dd className="md:col-span-3">Complement to existing analytics; controlled rollout; aggressive on commercial protections</dd>
         <dt className="col-span-2 md:col-span-1 text-muted-foreground uppercase tracking-[0.16em] text-[11px]">Key tension</dt>
         <dd className="md:col-span-3">Real product value vs opaque AI-credit economics and viewer-seat pricing at scale</dd>
       </dl>
@@ -265,7 +265,7 @@ function ClosingCTA() {
     <section className="mt-12 border border-primary/30 bg-primary/[0.04] rounded-sm p-8">
       <div className="chapter-num mb-2">Close · the ask</div>
       <h3 className="display text-3xl font-medium leading-tight">
-        Hex as the advanced AI-native analytical app layer — sitting between conversational AI and traditional BI.
+        Hex as the advanced AI-native analytical app layer — sitting between conversational AI and traditional analytics.
       </h3>
       <p className="mt-3 text-[15px] text-foreground/85 max-w-3xl">
         Narrow authoring, wide viewing, controlled credit economics. Use the simulator to anchor the

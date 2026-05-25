@@ -41,11 +41,11 @@ export const ORG_FACTS = [
   { label: "Employees",                value: "~5,000+", note: "Group-wide footprint" },
   { label: "Data org",                 value: "~120",    note: "Analysts, DS, DE" },
   { label: "Performance specialists",  value: "200–300", note: "Operational power users" },
-  { label: "Looker WAU",               value: "~1,100",  note: "Existing BI penetration" },
+  { label: "Looker WAU",               value: "~1,100",  note: "Existing analytics penetration" },
 ];
 
 export const EXISTING_STACK = [
-  { name: "Looker",        role: "Governed BI + LookML semantic layer" },
+  { name: "Looker",        role: "Governed analytics + LookML semantic layer" },
   { name: "Tableau",       role: "Analyst dashboards" },
   { name: "Looker Studio", role: "Lightweight visual reporting" },
   { name: "Niki",          role: "Internal conversational AI assistant" },
@@ -66,7 +66,7 @@ export const VALUE_CAPABILITIES = [
   { title: "Future: BYO MCP",                 body: "Discussed but not yet GA. Would let Hex apps interoperate with Asana, Linear, Notion, and internal services." },
 ];
 
-export const VALUE_CALLOUT = "Data apps materially help only ~15–20% of analytical use cases — but that is exactly the segment traditional BI under-serves.";
+export const VALUE_CALLOUT = "Data apps materially help only ~15–20% of analytical use cases — but that is exactly the segment traditional analytics under-serves.";
 
 /* ---------- 05. Risks ---------- */
 export interface Risk {
@@ -109,7 +109,7 @@ export const RISKS: Risk[] = [
   },
   {
     title: "Delivery Hero group-level licensing constraints",
-    body:  "Some BI licensing decisions are centralized above us, complicating wholesale replacement of existing tools.",
+    body:  "Some data & analytics licensing decisions are centralized above us, complicating wholesale replacement of existing tools.",
     mitigation: "Frame Hex as additive to the group stack; do not premise the business case on retiring Looker or Tableau seats.",
     severity: "low",
   },
@@ -221,7 +221,7 @@ export const VISUALS: ProductVisual[] = [
   {
     src: import.meta.env.BASE_URL + "hex-embedded-analytics_e36cb80e.png",
     title: "Embedded & published data apps",
-    blurb: "Publishable apps with KPI tiles, segmentation, and interactive controls — the layer beyond BI.",
+    blurb: "Publishable apps with KPI tiles, segmentation, and interactive controls — the layer beyond standard analytics.",
     source: "hex.tech — Embedded analytics",
     tag: "Data apps",
   },
@@ -282,7 +282,7 @@ export const SLIDES: Slide[] = [
   {
     kicker: "02 · Thesis",
     title: "Complement, not replace",
-    body: "Position Hex as the advanced analytical application layer for the 15–20% of workflows traditional BI does not solve well.",
+    body: "Position Hex as the advanced analytical application layer for the 15–20% of workflows traditional analytics does not solve well.",
     variant: "section",
   },
   {
@@ -334,7 +334,7 @@ export const SLIDES: Slide[] = [
   {
     kicker: "Close",
     title: "Hex as the advanced AI-native analytical app layer",
-    body: "Sitting between conversational AI (Niki) and traditional BI — narrow authoring, wide viewing, controlled credit economics.",
+    body: "Sitting between conversational AI (Niki) and traditional analytics — narrow authoring, wide viewing, controlled credit economics.",
     variant: "decision",
   },
 ];

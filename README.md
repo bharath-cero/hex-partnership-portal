@@ -6,7 +6,7 @@ surfaces value, risk, and negotiation priorities, and ships an **interactive pri
 & scenario simulator** plus a **slide mode** companion for live presentation.
 
 > **Audience.** Data &amp; AI leadership and the negotiation working group.
-> **Posture.** Hex as a complement to existing BI, controlled rollout, aggressive on commercial protections.
+> **Posture.** Hex as a complement to existing analytics, controlled rollout, aggressive on commercial protections.
 
 ---
 
