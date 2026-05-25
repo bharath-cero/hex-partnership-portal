@@ -12,11 +12,16 @@ interface Props {
   variant?: "inline" | "page";
 }
 
-const DEFAULT_AI_CREDITS_ANNUAL = 60000; // illustrative Hex credit purchase
-const DEFAULT_BYOT_ANNUAL       = 36000; // illustrative BYOT spend
+const DEFAULT_AI_CREDITS_ANNUAL = 60000;
+const DEFAULT_BYOT_ANNUAL       = 36000;
 
-function inputsFromScenario(s: RolloutScenario, base = LIST_PRICES): PricingInputs {
+function round2(n: number) { return Math.round(n * 100) / 100; }
+
+function inputsFromScenario(s: RolloutScenario, byotMode: boolean, base = LIST_PRICES): PricingInputs {
   const d = s.recommendedDiscount;
+  // Apply specific discount targets based on mode as requested
+  const targetDiscount = byotMode ? 0.75 : 0.50;
+  
   return {
     viewerSeats: s.viewers,
     explorerSeats: s.explorers,
@@ -25,31 +30,30 @@ function inputsFromScenario(s: RolloutScenario, base = LIST_PRICES): PricingInpu
     listExplorer: base.explorer,
     listAuthor: base.author,
     listPlatformAnnual: base.platformAnnual,
-    negViewer: round2(base.viewer * (1 - d.viewer)),
-    negExplorer: round2(base.explorer * (1 - d.explorer)),
-    negAuthor: round2(base.author * (1 - d.author)),
+    negViewer: 0, // Free viewers as requested
+    negExplorer: round2(base.explorer * (1 - targetDiscount)),
+    negAuthor: round2(base.author * (1 - targetDiscount)),
     negPlatformAnnual: Math.round(base.platformAnnual * (1 - d.platform)),
-    byot: s.byot,
+    byot: byotMode,
     aiCreditsAnnual: DEFAULT_AI_CREDITS_ANNUAL,
     byotEstimateAnnual: DEFAULT_BYOT_ANNUAL,
   };
 }
 
-function round2(n: number) { return Math.round(n * 100) / 100; }
-
 export function PricingSimulator({ variant = "inline" }: Props) {
   const [scenarioId, setScenarioId] = useState<RolloutScenario["id"]>("controlled");
+  const [byotMode, setByotMode] = useState<boolean>(false);
   const scenario = SCENARIOS.find((s) => s.id === scenarioId)!;
-  const [inputs, setInputs] = useState<PricingInputs>(() => inputsFromScenario(scenario));
+  const [inputs, setInputs] = useState<PricingInputs>(() => inputsFromScenario(scenario, false));
 
-  // When scenario changes, reset inputs to that scenario's defaults
+  // When scenario or mode changes, reset inputs
   useEffect(() => {
-    setInputs(inputsFromScenario(scenario));
-  }, [scenarioId]); // eslint-disable-line react-hooks/exhaustive-deps
+    setInputs(inputsFromScenario(scenario, byotMode));
+  }, [scenarioId, byotMode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const result = useMemo(() => calculatePricing(inputs), [inputs]);
 
-  // Smoothly animate the total
+  // Smoothly animate numeric values
   const animatedTotal = useAnimatedNumber(result.totalNegotiated);
   const animatedDiscount = useAnimatedNumber(result.impliedDiscountPct);
 
@@ -58,16 +62,32 @@ export function PricingSimulator({ variant = "inline" }: Props) {
   }
 
   function resetScenario() {
-    setInputs(inputsFromScenario(scenario));
+    setInputs(inputsFromScenario(scenario, byotMode));
   }
 
   return (
     <div className={variant === "page" ? "" : "border border-border rounded-sm bg-card overflow-hidden"}>
+      {/* AI Mode Tabs */}
+      <div className="flex border-b border-border bg-secondary/20">
+        <button
+          onClick={() => setByotMode(false)}
+          className={`flex-1 py-3 text-[13px] font-medium tracking-wide uppercase transition-colors ${!byotMode ? "bg-card text-foreground border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
+        >
+          Standard Model (50% target)
+        </button>
+        <button
+          onClick={() => setByotMode(true)}
+          className={`flex-1 py-3 text-[13px] font-medium tracking-wide uppercase transition-colors ${byotMode ? "bg-card text-foreground border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}
+        >
+          BYOT Model (75% target)
+        </button>
+      </div>
+
       {/* Scenario chips */}
       <div className="px-5 pt-5 pb-3 border-b border-border flex flex-wrap items-end justify-between gap-4">
         <div>
           <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            Pricing &amp; scenario simulator
+            {byotMode ? "Bring Your Own Tokens Model" : "Standard Per-Seat Credit Model"}
           </div>
           <div className="font-display text-2xl font-medium mt-1">
             {scenario.name}
@@ -100,8 +120,24 @@ export function PricingSimulator({ variant = "inline" }: Props) {
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px]">
         {/* Inputs + narrative */}
         <div className="p-6 space-y-8">
+          {/* Narrative / Strategy Callout */}
+          <div className="bg-primary/[0.03] border border-primary/10 rounded-sm p-4 text-[14px] leading-relaxed italic text-foreground/80">
+            {byotMode ? (
+              <p>
+                <strong>BYOT Strategy:</strong> Pooled tokens at the workspace level. High up-front discounts (75%) 
+                offset the requirement to cover all token use (including Review and App Builder agents). 
+                Best for uneven usage and centralized cost management.
+              </p>
+            ) : (
+              <p>
+                <strong>Standard Strategy:</strong> Seat-based non-transferable credits. Gratis agent token use. 
+                Targeting 50% discount to list to justify per-seat overhead.
+              </p>
+            )}
+          </div>
+
           {/* Seat counts */}
-          <Block title="Seat counts" subtitle="Configure rollout shape.">
+          <Block title="Seat counts" subtitle="Configure rollout shape. Viewers are assumed free ($0).">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <NumberField label="Authors / admins" hint="Notebook & app builders" value={inputs.authorSeats} step={1} min={0} onChange={(v) => update("authorSeats", v)} />
               <NumberField label="Explorers"        hint="Threads + self-serve"   value={inputs.explorerSeats} step={5} min={0} onChange={(v) => update("explorerSeats", v)} />
@@ -110,16 +146,18 @@ export function PricingSimulator({ variant = "inline" }: Props) {
           </Block>
 
           {/* List vs negotiated */}
-          <Block title="Seat pricing" subtitle="List comes from Hex sales call; negotiated is our counter-offer.">
+          <Block title="Seat pricing" subtitle="Calculated based on model-specific discount targets.">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <PriceField label="Author"   list={inputs.listAuthor}   neg={inputs.negAuthor}   onList={(v) => update("listAuthor", v)}   onNeg={(v) => update("negAuthor", v)}   suffix="/mo" />
               <PriceField label="Explorer" list={inputs.listExplorer} neg={inputs.negExplorer} onList={(v) => update("listExplorer", v)} onNeg={(v) => update("negExplorer", v)} suffix="/mo" />
-              <PriceField label="Viewer"   list={inputs.listViewer}   neg={inputs.negViewer}   onList={(v) => update("listViewer", v)}   onNeg={(v) => update("negViewer", v)}   suffix="/mo" />
+              <div className="opacity-50 grayscale pointer-events-none">
+                <PriceField label="Viewer (Target: $0)"   list={inputs.listViewer}   neg={0}   onList={() => {}}   onNeg={() => {}}   suffix="/mo" />
+              </div>
             </div>
           </Block>
 
           {/* Platform fee */}
-          <Block title="Single-tenant platform fee" subtitle="Hex sales referenced $96k/yr list; we are anchoring lower.">
+          <Block title="Single-tenant platform fee" subtitle="Hex list is $96k/yr; we are anchoring for material reduction.">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <PriceField label="Platform (list)"      list={inputs.listPlatformAnnual} neg={inputs.negPlatformAnnual} onList={(v) => update("listPlatformAnnual", v)} onNeg={(v) => update("negPlatformAnnual", v)} suffix="/yr" annual />
               <div className="self-end text-[13px] text-muted-foreground">
@@ -130,38 +168,21 @@ export function PricingSimulator({ variant = "inline" }: Props) {
           </Block>
 
           {/* AI economics */}
-          <Block title="AI economics" subtitle="Hex credits vs Bring-Your-Own-Tokens (BYOT).">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-              <div className="md:col-span-1">
-                <label className="block text-[12px] uppercase tracking-[0.16em] text-muted-foreground mb-2">
-                  Mode
-                </label>
-                <div className="inline-flex border border-border rounded-sm overflow-hidden">
-                  <button
-                    onClick={() => update("byot", false)}
-                    className={`px-3 py-2 text-[12.5px] ${!inputs.byot ? "bg-primary text-primary-foreground" : "bg-card text-foreground/80"}`}
-                  >
-                    Hex AI credits
-                  </button>
-                  <button
-                    onClick={() => update("byot", true)}
-                    className={`px-3 py-2 text-[12.5px] inline-flex items-center gap-1 ${inputs.byot ? "bg-primary text-primary-foreground" : "bg-card text-foreground/80"}`}
-                  >
-                    <Sparkles size={12} /> BYOT
-                  </button>
-                </div>
-              </div>
+          <Block title="AI costs" subtitle={byotMode ? "Pooled workspace tokens" : "Hex per-seat credits"}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
               <NumberField
-                label={inputs.byot ? "BYOT spend (est. annual)" : "Hex credits (annual)"}
-                hint={inputs.byot ? "Model + infra estimate under your control" : "Hex-issued credits, per workspace"}
-                value={inputs.byot ? inputs.byotEstimateAnnual : inputs.aiCreditsAnnual}
+                label={byotMode ? "BYOT spend (est. annual)" : "Hex shared credits (annual)"}
+                hint={byotMode ? "Tokens for Review/App agents + user use" : "Gratis agent use + user seat credits"}
+                value={byotMode ? inputs.byotEstimateAnnual : inputs.aiCreditsAnnual}
                 step={1000}
                 min={0}
-                onChange={(v) => inputs.byot ? update("byotEstimateAnnual", v) : update("aiCreditsAnnual", v)}
+                onChange={(v) => byotMode ? update("byotEstimateAnnual", v) : update("aiCreditsAnnual", v)}
                 prefix="$"
               />
               <div className="text-[12.5px] text-muted-foreground leading-snug">
-                BYOT centralizes token economics and avoids opaque credit-to-token re-pricing. Hex credits remain useful for low-volume pilots.
+                {byotMode 
+                  ? "Everything is pooled at the workspace level. Cover token use for all agents in exchange for steeper seat discounts."
+                  : "Standard seat credits + gratis token use for Review and App Builder agents. Best for predictable individual usage."}
               </div>
             </div>
           </Block>
@@ -184,8 +205,8 @@ export function PricingSimulator({ variant = "inline" }: Props) {
                   <Row label={`Viewers × ${fmtInt(inputs.viewerSeats)}`}     list={result.viewerListAnnual}     neg={result.viewerNegAnnual} />
                   <Row label="Single-tenant platform fee"                    list={result.platformListAnnual}   neg={result.platformNegAnnual} />
                   <Row
-                    label={inputs.byot ? "AI · BYOT (you control)" : "AI · Hex credits"}
-                    list={inputs.byot ? 0 : inputs.aiCreditsAnnual}
+                    label={byotMode ? "AI · BYOT (you control)" : "AI · Hex shared credits"}
+                    list={byotMode ? 0 : inputs.aiCreditsAnnual}
                     neg={result.aiAnnual}
                   />
                 </tbody>
@@ -240,7 +261,7 @@ export function PricingSimulator({ variant = "inline" }: Props) {
             <div className="rule" />
             <SummaryRow label="Seat cost (neg.)"     value={fmtUSD(result.authorNegAnnual + result.explorerNegAnnual + result.viewerNegAnnual)} />
             <SummaryRow label="Platform fee (neg.)"  value={fmtUSD(result.platformNegAnnual)} />
-            <SummaryRow label={inputs.byot ? "BYOT spend" : "Hex credits"}  value={fmtUSD(result.aiAnnual)} />
+            <SummaryRow label={byotMode ? "BYOT spend" : "AI costs"}  value={fmtUSD(result.aiAnnual)} />
 
             <div className="rule" />
 
