@@ -54,7 +54,7 @@ export const EXISTING_STACK = [
 
 /* ---------- 02. Thesis ---------- */
 export const THESIS = `Hex should not be positioned as a replacement for Looker, Tableau, or Looker Studio.
-It should be adopted as the advanced analytical application layer — a complement that handles the 15–20% of workflows traditional dashboards do not solve well: highly interactive operational tools, custom investigations, modeling-heavy and embedded use cases.`;
+It should be adopted as the advanced analytical application layer — a complement that handles the 15–20% of workflows traditional dashboards do not solve well: automated WBR/MBR reporting, highly interactive operational tools, custom investigations, modeling-heavy work, and embedded analytics for customer-facing portals and in-app decision tools.`;
 
 /* ---------- 04. Incremental value ---------- */
 export const VALUE_CAPABILITIES = [
