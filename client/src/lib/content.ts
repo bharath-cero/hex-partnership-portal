@@ -9,6 +9,7 @@
 export type ChapterId =
   | "context"
   | "thesis"
+  | "commercial"
   | "fit"
   | "value"
   | "risks"
@@ -27,13 +28,14 @@ export interface Chapter {
 export const CHAPTERS: Chapter[] = [
   { id: "context",     number: "01", title: "Organizational context",                    kicker: "Where Hex would land" },
   { id: "thesis",      number: "02", title: "Strategic thesis",                          kicker: "Complement, not replace" },
-  { id: "fit",         number: "03", title: "Fit in the stack",                          kicker: "Looker · Hex · Niki" },
-  { id: "value",       number: "04", title: "Incremental value",                         kicker: "What Hex actually adds" },
-  { id: "risks",       number: "05", title: "Risks & mitigations",                       kicker: "Credits, lock-in, BYOT" },
-  { id: "negotiation", number: "06", title: "Negotiation priorities",                    kicker: "What we ask for" },
-  { id: "rollout",     number: "07", title: "Rollout scenarios",                         kicker: "Controlled · Heavy · Broad" },
-  { id: "calculator",  number: "08", title: "Pricing & scenario simulator",              kicker: "Live commercial math" },
-  { id: "appendix",    number: "09", title: "Appendix · product visuals",                kicker: "From hex.tech" },
+  { id: "commercial",  number: "03", title: "Commercial structure",                      kicker: "Tiers · Platform · AI Modes" },
+  { id: "fit",         number: "04", title: "Fit in the stack",                          kicker: "Looker · Hex · Niki" },
+  { id: "value",       number: "05", title: "Incremental value",                         kicker: "What Hex actually adds" },
+  { id: "risks",       number: "06", title: "Risks & mitigations",                       kicker: "Commercial · Strategic" },
+  { id: "negotiation", number: "07", title: "Negotiation priorities",                    kicker: "What we ask for" },
+  { id: "rollout",     number: "08", title: "Rollout scenarios",                         kicker: "Controlled · Broad" },
+  { id: "calculator",  number: "09", title: "Pricing & scenario simulator",              kicker: "Live commercial math" },
+  { id: "appendix",    number: "10", title: "Appendix · product visuals",                kicker: "From hex.tech" },
 ];
 
 /* ---------- 01. Organizational context ---------- */
@@ -56,7 +58,73 @@ export const EXISTING_STACK = [
 export const THESIS = `Hex should not be positioned as a replacement for Looker, Tableau, or Looker Studio.
 It should be adopted as the advanced analytical application layer — a complement that handles the 15–20% of workflows traditional dashboards do not solve well: automated WBR/MBR reporting, highly interactive operational tools, custom investigations, modeling-heavy work, and embedded analytics for customer-facing portals and in-app decision tools.`;
 
-/* ---------- 04. Incremental value ---------- */
+/* ---------- 03. Commercial Structure ---------- */
+export const SEAT_TIERS = [
+  {
+    name: "Viewer",
+    list: "Negotiable ($0–$15)",
+    audience: "Broad organization",
+    capabilities: "View published data apps/dashboards. No authoring or threads.",
+    note: "Primary lever for broad distribution."
+  },
+  {
+    name: "Explorer",
+    list: "$40 / user / mo",
+    audience: "Power users / Performance specialists",
+    capabilities: "Threads (AI chat), self-serve analytics, run governed queries.",
+    note: "The 'Self-Serve' sweet spot."
+  },
+  {
+    name: "Editor / Author",
+    list: "$250 / user / mo",
+    audience: "Analysts / DS / DE / Builders",
+    capabilities: "Full notebook authoring (SQL/Python), build apps, maintain semantic models.",
+    note: "The advanced authoring core."
+  }
+];
+
+export const PLATFORM_MODES = [
+  {
+    mode: "Multi-tenant",
+    list: "~$0 (Bundled)",
+    benefits: "Shared SaaS cloud, lower TCO, immediate setup.",
+    target: "Default for most customers."
+  },
+  {
+    mode: "Single-tenant",
+    list: "~$96,000 / yr",
+    benefits: "Isolated infra, dedicated deployment, stricter security/compliance.",
+    target: "Enterprises with high isolation requirements."
+  }
+];
+
+export const AI_ECONOMICS = [
+  {
+    label: "Hex AI Credits",
+    whoPays: "You pay Hex (credits)",
+    transparency: "Abstracted via credits",
+    pooling: "Per-seat (optional paid workspace pool)",
+    advantage: "Hex negotiates model pricing at scale; gratis agent use."
+  },
+  {
+    label: "BYO Tokens (BYOT)",
+    whoPays: "You pay provider directly",
+    transparency: "Full line-item visibility",
+    pooling: "Naturally workspace-pooled",
+    advantage: "Centralized governance, use custom models, removes re-pricing risk."
+  }
+];
+
+/* ---------- 04. Stack diagram nodes ---------- */
+export const STACK_LAYERS = [
+  { tier: "Self Serve (Canonical Views)", items: ["Hex viewers / data apps", "Looker dashboards", "Tableau workbooks", "Looker Studio"] },
+  { tier: "Self Serve (Bespoke Modeling + RCA)", items: ["Hex explorers · threads", "Looker explores"] },
+  { tier: "Authoring",         items: ["Hex authors (notebooks, apps, modeling)", "LookML developers", "Tableau authors"] },
+  { tier: "Semantic & context",items: ["dbt", "LookML", "Hex semantic models (sync from Looker)", "Hex Review Agent", "Hex BYO-MCP (Future)", "Endorsed projects · rules files"] },
+  { tier: "Data platform",     items: ["BigQuery", "Service accounts / OAuth / Google Groups"] },
+];
+
+/* ---------- 05. Incremental value ---------- */
 export const VALUE_CAPABILITIES = [
   { title: "Notebook-native workflows",       body: "SQL, Python, and no-code cells in one author surface, with shared execution context." },
   { title: "Rich data applications",          body: "Productionized interactive apps with LLMs, calculators, automated analysis, and scheduled refreshes." },
@@ -68,7 +136,7 @@ export const VALUE_CAPABILITIES = [
 
 export const VALUE_CALLOUT = "Data apps materially help only ~15–20% of analytical use cases — but that is exactly the segment traditional analytics under-serves.";
 
-/* ---------- 05. Risks ---------- */
+/* ---------- 06. Risks ---------- */
 export interface Risk {
   title: string;
   body: string;
@@ -109,7 +177,7 @@ export const RISKS: Risk[] = [
   },
 ];
 
-/* ---------- 06. Negotiation priorities ---------- */
+/* ---------- 07. Negotiation priorities ---------- */
 export const NEGOTIATION_ASKS = [
   { priority: "High",   ask: "$0 viewer seats",                              rationale: "Enables broad data-app distribution without per-head cost." },
   { priority: "High",   ask: "Lower single-tenant platform fee",             rationale: "Hex list is $96k/yr; aim for material reduction tied to commitment." },
@@ -121,9 +189,9 @@ export const NEGOTIATION_ASKS = [
   { priority: "Low",    ask: "Slack white-labeling for Niki co-existence",   rationale: "Avoid agent collision in shared channels." },
 ];
 
-/* ---------- 07. Rollout scenarios ---------- */
+/* ---------- 08. Rollout scenarios ---------- */
 export interface RolloutScenario {
-  id: "controlled" | "heavy" | "broad";
+  id: "controlled" | "broad";
   name: string;
   oneliner: string;
   authors: number;
@@ -162,15 +230,6 @@ export const LIST_PRICES = {
   author: 250,     // /seat/mo
   platformAnnual: 96000, // single-tenant
 };
-
-/* ---------- Stack diagram nodes ---------- */
-export const STACK_LAYERS = [
-  { tier: "Self Serve (Canonical Views)", items: ["Hex viewers / data apps", "Looker dashboards", "Tableau workbooks", "Looker Studio"] },
-  { tier: "Self Serve (Bespoke Modeling + RCA)", items: ["Hex explorers · threads", "Looker explores"] },
-  { tier: "Authoring",         items: ["Hex authors (notebooks, apps, modeling)", "LookML developers", "Tableau authors"] },
-  { tier: "Semantic & context",items: ["dbt", "LookML", "Hex semantic models (sync from Looker)", "Hex Review Agent", "Hex BYO-MCP (Future)", "Endorsed projects · rules files"] },
-  { tier: "Data platform",     items: ["BigQuery", "Service accounts / OAuth / Google Groups"] },
-];
 
 /* ---------- Hex product visuals (uploaded to webdev storage) ---------- */
 export interface ProductVisual {
@@ -234,7 +293,7 @@ export const VISUALS: ProductVisual[] = [
   {
     src: import.meta.env.BASE_URL + "hex-workspace_68ac301b.png",
     title: "Magic context studio",
-    blurb: "Per-database inclusion controls determine what the agent sees when generating answers.",
+    blurb: "Magic inclusion controls determine what the agent sees when generating answers.",
     source: "learn.hex.tech — Setup workspace for AI agents",
     tag: "Workspace",
   },
@@ -254,72 +313,77 @@ export const SLIDES: Slide[] = [
   {
     kicker: "Hex.tech · Partnership opportunity",
     title: "Decision-ready brief",
-    body: "Where Hex fits, what it adds, what it costs, and what we should negotiate.",
+    body: "A strategic rubric for evaluating the Hex partnership, commercial structure, and rollout scenarios.",
     variant: "title",
   },
   {
     kicker: "01 · Context",
-    title: "Hex is not entering greenfield",
-    body: "Looker, Tableau, Looker Studio, and Niki are already operating at scale. Any Hex motion must be additive.",
-    bullets: ["~5,000+ employees", "~120-person data org", "200–300 performance specialists", "~1,100 Looker WAU"],
+    title: "Where Hex lands in our org",
+    body: "Hex enters an ecosystem with 5,000+ employees and an established analytics stack. It must be a complement, not a replacement.",
+    bullets: ["~1,100 Looker WAU", "200-300 Performance Specialists", "~120-person Data Org"],
     variant: "numbers",
   },
   {
     kicker: "02 · Thesis",
-    title: "Complement, not replace",
-    body: "Position Hex as the advanced analytical application layer for the 15–20% of workflows traditional analytics does not solve well.",
+    title: "The advanced analytics app layer",
+    body: "Hex handles the 15-20% of workflows traditional dashboards miss: WBR/MBR automations, data apps, and custom investigations.",
     variant: "section",
   },
   {
-    kicker: "03 · Fit",
-    title: "Three layers, distinct jobs",
-    body: "Niki for conversational access · Looker / Tableau for governed reporting · Hex for advanced analytical apps and AI-native workflows.",
-    variant: "section",
-  },
-  {
-    kicker: "04 · Value",
-    title: "What Hex actually adds",
-    body: "Notebooks, data apps, threads, AI-assisted semantic enrichment, modeling from the author seat, and a future BYO-MCP path.",
-    image: "/manus-storage/hex-notebook-hero_64fa431f.png",
-    variant: "image",
-  },
-  {
-    kicker: "05 · Risk",
-    title: "AI credits are the biggest commercial risk",
-    body: "Hex controls credit pricing, burn rate, and model routing. Effective AI value can move opaquely.",
-    bullets: ["Demand burn-rate transparency", "Secure right to BYO tokens / models", "Pool credits at workspace level"],
-    variant: "decision",
-  },
-  {
-    kicker: "05 · Risk",
-    title: "Semantic-layer lock-in is real but mitigable",
-    body: "Artifacts are MD/YAML with GitHub sync. Codify export and round-trip in the MSA.",
-    variant: "section",
-  },
-  {
-    kicker: "06 · Negotiation",
-    title: "What we ask for",
-    body: "Top of the list: free viewers, lower platform fee, AI-credit transparency, BYOT, workspace pooling.",
-    bullets: ["$0 viewer seats", "Lower platform fee", "Burn-rate transparency", "BYO tokens", "Pooled workspace credits"],
-    variant: "decision",
-  },
-  {
-    kicker: "07 · Rollout",
-    title: "Recommended: controlled complement",
-    body: "Small author core, mid explorer layer, broad viewers. Keep authors scarce and intentional.",
-    bullets: ["~12 authors", "~80 explorers", "1,500 free viewers", "BYOT enabled"],
+    kicker: "03 · Commercial",
+    title: "Three-tier seat model",
+    body: "Author ($250/mo), Explorer ($40/mo), and Viewer ($0-$15/mo). Negotiation focuses on 'narrow authoring, wide viewing'.",
+    bullets: ["Authors: Builders/Analysts", "Explorers: Power users", "Viewers: Broad consumers"],
     variant: "numbers",
   },
   {
-    kicker: "08 · Commercial",
-    title: "Use the simulator",
-    body: "The interactive simulator lets us toggle scenarios, BYOT, and counter-pricing, and see implied discount and annualized total live.",
+    kicker: "03 · Commercial",
+    title: "AI Economics: Credits vs BYOT",
+    body: "Hex credits offer simplicity and gratis agent use; BYOT offers full transparency, centralized governance, and pooled usage.",
+    variant: "decision",
+  },
+  {
+    kicker: "04 · Fit",
+    title: "Three layers, distinct jobs",
+    body: "Niki for conversational access · Looker / Tableau for governed reporting · Hex for advanced analytical apps.",
+    variant: "section",
+  },
+  {
+    kicker: "05 · Value",
+    title: "What Hex actually adds",
+    body: "Notebooks, data apps, threads, AI-assisted semantic enrichment, and future BYO-MCP interoperability.",
+    image: import.meta.env.BASE_URL + "hex-notebook-hero_64fa431f.png",
+    variant: "image",
+  },
+  {
+    kicker: "06 · Risk",
+    title: "Commercial & Strategic Risks",
+    body: "Primary risks center on viewer seat economics at scale and opaque AI credit re-pricing.",
+    bullets: ["Push for $0 viewer seats", "Demand AI burn-rate transparency", "Secure right to BYO tokens"],
+    variant: "decision",
+  },
+  {
+    kicker: "07 · Negotiation",
+    title: "Negotiation Priorities",
+    body: "Our asks are sequenced by leverage: $0 viewers, BYOT rights, workspace pooling, and volume tiers.",
+    variant: "decision",
+  },
+  {
+    kicker: "08 · Rollout",
+    title: "Recommended: Controlled complement",
+    body: "Small author core (12), 150-300 explorers, and free viewers. Anchored on deep discounts (50-75% target).",
+    variant: "numbers",
+  },
+  {
+    kicker: "09 · Commercial",
+    title: "Pressure-test in the simulator",
+    body: "The interactive simulator toggles between Standard and BYOT models with model-specific discount targets.",
     variant: "section",
   },
   {
     kicker: "Close",
-    title: "Hex as the advanced AI-native analytical app layer",
-    body: "Sitting between conversational AI (Niki) and traditional analytics — narrow authoring, wide viewing, controlled credit economics.",
+    title: "Securing a sustainable partnership",
+    body: "Narrow authoring, wide viewing, and controlled AI economics to complement our modern data stack.",
     variant: "decision",
   },
 ];

@@ -1,6 +1,6 @@
 /**
  * Home / Brief page — the executive narrative.
- * Design: "Boardroom Editorial". Chapters 01–09, each ending in a decision block where appropriate.
+ * Design: "Boardroom Editorial". Chapters 01–10, each ending in a decision block where appropriate.
  */
 import { PortalLayout } from "@/components/PortalLayout";
 import { Chapter, Decision, Marginalia } from "@/components/Chapter";
@@ -10,7 +10,7 @@ import { ScenarioCompare } from "@/components/ScenarioCompare";
 import { VisualsGallery } from "@/components/VisualsGallery";
 import {
   ORG_FACTS, EXISTING_STACK, THESIS, VALUE_CAPABILITIES, VALUE_CALLOUT,
-  RISKS, NEGOTIATION_ASKS,
+  RISKS, NEGOTIATION_ASKS, SEAT_TIERS, PLATFORM_MODES, AI_ECONOMICS,
 } from "@/lib/content";
 import { Link } from "wouter";
 import { ArrowRight, Presentation, Calculator } from "lucide-react";
@@ -71,7 +71,79 @@ export default function Home() {
         </Decision>
       </Chapter>
 
-      <Chapter id="fit" number="03" title="Fit in the stack" kicker="Looker · Hex · Niki">
+      <Chapter id="commercial" number="03" title="Commercial structure" kicker="Tiers · Platform · AI Modes">
+        <p>
+          Hex licenses access by role, not by usage. The pricing curve incentivizes a "narrow author core + mid
+          explorer layer + wide viewer base" — the exact shape recommended for our organizational complexity.
+        </p>
+
+        <h3 className="font-display text-xl font-medium mt-8 mb-4">Three-tier seat model</h3>
+        <div className="border border-border rounded-sm overflow-hidden">
+          <table className="w-full text-[14px]">
+            <thead className="bg-secondary/60">
+              <tr className="text-left">
+                <th className="px-4 py-2.5 font-medium">Seat Tier</th>
+                <th className="px-4 py-2.5 font-medium">List Price</th>
+                <th className="px-4 py-2.5 font-medium">Capabilities</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {SEAT_TIERS.map((t) => (
+                <tr key={t.name} className="align-top">
+                  <td className="px-4 py-3">
+                    <div className="font-medium">{t.name}</div>
+                    <div className="text-[11px] text-muted-foreground mt-0.5">{t.audience}</div>
+                  </td>
+                  <td className="px-4 py-3 font-mono tnum text-foreground/80">{t.list}</td>
+                  <td className="px-4 py-3">
+                    <div className="text-foreground/80 leading-snug">{t.capabilities}</div>
+                    <div className="text-[11px] italic text-muted-foreground mt-1">{t.note}</div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="font-display text-xl font-medium mt-10 mb-4">Platform &amp; AI economics</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="border border-border bg-card rounded-sm p-5">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-primary mb-3">Deployment Modes</div>
+            <div className="space-y-4">
+              {PLATFORM_MODES.map((m) => (
+                <div key={m.mode}>
+                  <div className="flex items-baseline justify-between">
+                    <div className="font-medium text-[15px]">{m.mode}</div>
+                    <div className="font-mono text-xs text-muted-foreground">{m.list}</div>
+                  </div>
+                  <p className="text-[13px] text-foreground/70 mt-1">{m.benefits}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="border border-border bg-card rounded-sm p-5">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-primary mb-3">AI Credits vs BYOT</div>
+            <div className="space-y-4">
+              {AI_ECONOMICS.map((a) => (
+                <div key={a.label}>
+                  <div className="font-medium text-[15px]">{a.label}</div>
+                  <p className="text-[13px] text-foreground/70 mt-1">{a.advantage}</p>
+                  <div className="flex gap-3 mt-1.5">
+                    <span className="text-[10px] bg-secondary px-1.5 py-0.5 rounded-sm text-muted-foreground uppercase tracking-wider">{a.whoPays}</span>
+                    <span className="text-[10px] bg-secondary px-1.5 py-0.5 rounded-sm text-muted-foreground uppercase tracking-wider">{a.pooling}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <Decision title="Treat the platform fee as a primary negotiation lever">
+          The $96k/yr single-tenant fee is list; in practice, it is the standard lever Hex uses to trade for seat commitments. If isolated infra is not a hard requirement, multi-tenant removes this line entirely.
+        </Decision>
+      </Chapter>
+
+      <Chapter id="fit" number="04" title="Fit in the stack" kicker="Looker · Hex · Niki">
         <p>
           The clearest narrative for internal communication is a three-layer model. Niki remains the
           conversational access layer for organization-wide ad-hoc questions; Looker, Tableau, and Looker
@@ -93,7 +165,7 @@ export default function Home() {
         </Marginalia>
       </Chapter>
 
-      <Chapter id="value" number="04" title="What Hex actually adds" kicker="Incremental value">
+      <Chapter id="value" number="05" title="What Hex actually adds" kicker="Incremental value">
         <p>
           The capabilities below were validated against the sales call and the product surface. Each is
           framed as an incremental addition to today's stack, not a replacement.
@@ -115,7 +187,7 @@ export default function Home() {
         </Decision>
       </Chapter>
 
-      <Chapter id="risks" number="05" title="Risks &amp; mitigations" kicker="Credits, lock-in, BYOT">
+      <Chapter id="risks" number="06" title="Risks &amp; mitigations" kicker="Commercial · Strategic">
         <p>
           The substantive risks cluster around the AI economics and the semantic layer. Both are
           addressable, but only if we negotiate the right contractual protections now.
@@ -146,7 +218,7 @@ export default function Home() {
         </Decision>
       </Chapter>
 
-      <Chapter id="negotiation" number="06" title="What we ask for" kicker="Negotiation priorities">
+      <Chapter id="negotiation" number="07" title="What we ask for" kicker="Negotiation priorities">
         <p>
           The asks are sequenced by leverage and economic impact. The first three are conditions of
           partnership; the remainder shape long-term operability.
@@ -181,20 +253,19 @@ export default function Home() {
         </Marginalia>
       </Chapter>
 
-      <Chapter id="rollout" number="07" title="Rollout scenarios" kicker="Controlled · Explorer-heavy · Broad">
+      <Chapter id="rollout" number="08" title="Rollout scenarios" kicker="Controlled · Broad">
         <p>
-          Three rollout shapes are useful: a controlled complement (recommended), an explorer-heavy
-          operational tier that saturates the performance-specialist cohort, and a broad rollout that
-          functions both as a stretch case and as a negotiation anchor.
+          Two rollout shapes are useful: a controlled complement (recommended) and a broad rollout 
+          that functions both as a stretch case and as a negotiation anchor.
         </p>
         <ScenarioCompare />
       </Chapter>
 
-      <Chapter id="calculator" number="08" title="Pricing &amp; scenario simulator" kicker="Live commercial math">
+      <Chapter id="calculator" number="09" title="Pricing &amp; scenario simulator" kicker="Live commercial math">
         <p>
           The simulator below uses the inputs Hex sales surfaced on the call ($250 author, $40 explorer,
-          $96k single-tenant platform fee) and lets you key in counter-pricing, toggle BYOT, and watch the
-          implied discount and annualized total update live.
+          $96k single-tenant platform fee) and lets you key in counter-pricing, toggle between 
+          Standard and BYOT models, and watch the implied discount update live.
         </p>
         <PricingSimulator />
         <Marginalia>
@@ -203,7 +274,7 @@ export default function Home() {
         </Marginalia>
       </Chapter>
 
-      <Chapter id="appendix" number="09" title="Product visuals" kicker="From hex.tech &amp; learn.hex.tech">
+      <Chapter id="appendix" number="10" title="Product visuals" kicker="From hex.tech &amp; learn.hex.tech">
         <p>
           A small curated gallery to ground the narrative in the actual product surface. Each image
           links back to the public Hex page it was captured from.
