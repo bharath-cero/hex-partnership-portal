@@ -1,0 +1,252 @@
+/*
+ * Hex Partnership Opportunity Portal — global tokens
+ * Design philosophy: "Boardroom Editorial"
+ *   - Paper ivory background + ink black text + deep emerald accent
+ *   - Fraunces (display serif) + Inter Tight (body) + JetBrains Mono (figures)
+ *   - Two-column editorial grid, marginalia callouts, decision-block endings
+ *   - Calm motion (180–260ms ease-out), no purple gradients, no Inter, no uniform rounding
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+:root {
+  /* Paper ivory + ink */
+  --background: oklch(0.965 0.012 85);              /* warm ivory #F6F2EA-ish */
+  --foreground: oklch(0.22 0.012 60);               /* near-ink */
+  --card: oklch(0.985 0.008 85);
+  --card-foreground: oklch(0.22 0.012 60);
+  --popover: oklch(0.985 0.008 85);
+  --popover-foreground: oklch(0.22 0.012 60);
+
+  /* Deep emerald accent */
+  --primary: oklch(0.42 0.09 165);                  /* #0B5A4A-ish */
+  --primary-foreground: oklch(0.97 0.012 85);
+
+  --secondary: oklch(0.93 0.012 85);
+  --secondary-foreground: oklch(0.3 0.012 60);
+  --muted: oklch(0.93 0.012 85);
+  --muted-foreground: oklch(0.45 0.015 60);
+  --accent: oklch(0.9 0.02 165);
+  --accent-foreground: oklch(0.28 0.06 165);
+
+  --destructive: oklch(0.5 0.16 27);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --border: oklch(0.86 0.012 75);
+  --input: oklch(0.9 0.012 75);
+  --ring: oklch(0.42 0.09 165);
+
+  --chart-1: oklch(0.42 0.09 165);   /* emerald */
+  --chart-2: oklch(0.55 0.12 165);
+  --chart-3: oklch(0.68 0.10 60);    /* amber */
+  --chart-4: oklch(0.50 0.16 27);    /* crimson */
+  --chart-5: oklch(0.35 0.04 280);   /* slate */
+
+  --sidebar: oklch(0.955 0.012 85);
+  --sidebar-foreground: oklch(0.25 0.012 60);
+  --sidebar-primary: oklch(0.42 0.09 165);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.93 0.012 85);
+  --sidebar-accent-foreground: oklch(0.3 0.012 60);
+  --sidebar-border: oklch(0.88 0.012 75);
+  --sidebar-ring: oklch(0.42 0.09 165);
+
+  --radius: 0.35rem; /* deliberately tight — not pillowy */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html, body {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* Subtle paper grain */
+    background-image:
+      radial-gradient(rgba(26, 26, 26, 0.025) 1px, transparent 1px),
+      radial-gradient(rgba(26, 26, 26, 0.018) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-feature-settings: "ss01", "ss02";
+    letter-spacing: -0.01em;
+  }
+
+  /* Tabular numerals everywhere — executive numerical clarity */
+  .tnum, .font-mono, .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+
+  ::selection {
+    background: oklch(0.42 0.09 165 / 0.18);
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container { padding-left: 2rem; padding-right: 2rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .container { padding-left: 3rem; padding-right: 3rem; max-width: 1320px; }
+  }
+
+  /* Editorial rule line */
+  .rule {
+    background: linear-gradient(to right, transparent, var(--border) 12%, var(--border) 88%, transparent);
+    height: 1px;
+    width: 100%;
+  }
+
+  .chapter-num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: var(--muted-foreground);
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+
+  .pull-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  .marginalia {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--muted-foreground);
+  }
+
+  /* Subtle hover lift for clickable cards */
+  .lift {
+    transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out), border-color 220ms var(--ease-out);
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px -16px rgba(11, 90, 74, 0.25);
+  }
+
+  /* Scenario chip underline animation */
+  .chip {
+    position: relative;
+  }
+  .chip::after {
+    content: "";
+    position: absolute;
+    left: 14px; right: 14px; bottom: 6px;
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 240ms var(--ease-out);
+  }
+  .chip[data-active="true"]::after { transform: scaleX(1); }
+
+  /* Decision block */
+  .decision {
+    border-left: 3px solid var(--primary);
+    background: oklch(0.42 0.09 165 / 0.04);
+  }
+
+  .marginalia-rail {
+    border-left: 1px dashed var(--border);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
