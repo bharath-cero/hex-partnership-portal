@@ -86,9 +86,9 @@ export const SEAT_TIERS = [
 export const PLATFORM_MODES = [
   {
     mode: "Multi-tenant",
-    list: "~$0 (Bundled)",
-    benefits: "Shared SaaS cloud, lower TCO, immediate setup.",
-    target: "Default for most customers."
+    list: "To be determined",
+    benefits: "Shared SaaS cloud. Typically lower TCO, but specific platform fee requires validation.",
+    target: "Default for most customers; faster to start."
   },
   {
     mode: "Single-tenant",
