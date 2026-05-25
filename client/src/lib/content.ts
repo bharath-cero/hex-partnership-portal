@@ -78,40 +78,34 @@ export interface Risk {
 
 export const RISKS: Risk[] = [
   {
-    title: "AI credits as an opaque intermediary currency",
-    body:  "Hex controls credit pricing, burn rate, model routing, and credit-to-token conversion. Even if list pricing drops, effective AI value can be silently re-priced.",
-    mitigation: "Demand transparency into burn rates and model mapping; secure right to BYO tokens and workspace-pooled credits in the contract.",
-    severity: "high",
-  },
-  {
-    title: "Semantic-layer lock-in inside Hex",
-    body:  "Continued enrichment of the semantic layer inside Hex creates platform gravity and portability risk.",
-    mitigation: "Hex stores artifacts as Markdown / YAML with GitHub sync — extraction is technically feasible. Codify export and round-trip guarantees in the MSA.",
-    severity: "medium",
-  },
-  {
-    title: "Per-seat AI credits cannot be pooled",
-    body:  "Idle author/explorer credits are stranded; usage is rigid and fragmented across seats.",
-    mitigation: "Negotiate workspace-level pooled AI usage so tokens behave as shared infrastructure rather than per-seat allowances.",
-    severity: "medium",
-  },
-  {
-    title: "Viewer seat economics at our scale",
+    title: "Commercial: Viewer seat economics at scale",
     body:  "Charging per viewer across thousands of consumers undermines the broad-distribution model that makes data apps valuable.",
     mitigation: "Push aggressively for $0 viewer pricing as a condition of partnership; tie author/explorer commitment to viewer concession.",
     severity: "high",
   },
   {
-    title: "Editor pricing vs existing Cursor/Claude access",
-    body:  "Author seats at $250/mo overlap with capabilities our technical team already has via Cursor and direct Claude access.",
-    mitigation: "Keep author seats intentionally small and targeted; justify each seat against a concrete data-app or modeling workload.",
+    title: "Commercial: AI credits as an opaque currency",
+    body:  "Hex controls credit pricing, burn rate, and model routing. Effective AI value can be silently re-priced even if seat costs stay flat.",
+    mitigation: "Demand transparency into burn rates and model mapping; secure right to BYO tokens and workspace-pooled credits in the contract.",
+    severity: "high",
+  },
+  {
+    title: "Commercial: List price vs negotiated target",
+    body:  "Standard list prices for Author ($250) and Explorer ($40) seats are high-water marks. Without significant volume discounts, the ROI on mid-size rollouts is thin.",
+    mitigation: "Anchor negotiations on the 200+ explorer tier to trigger material volume discounts; aim for 25-35% reduction from list.",
     severity: "medium",
   },
   {
-    title: "Delivery Hero group-level licensing constraints",
-    body:  "Some data & analytics licensing decisions are centralized above us, complicating wholesale replacement of existing tools.",
-    mitigation: "Frame Hex as additive to the group stack; do not premise the business case on retiring Looker or Tableau seats.",
-    severity: "low",
+    title: "Strategic: Semantic-layer lock-in inside Hex",
+    body:  "Continued enrichment of the semantic layer inside Hex creates platform gravity and portability risk.",
+    mitigation: "Hex stores artifacts as Markdown / YAML with GitHub sync. Codify export and round-trip guarantees in the MSA to ensure portability.",
+    severity: "medium",
+  },
+  {
+    title: "Strategic: Incremental value vs generalist AI tools",
+    body:  "The technical team already has access to Cursor, Claude Code, and direct LLMs. Hex must justify its premium over these existing toolsets.",
+    mitigation: "Focus Hex on the *last mile* of delivery—where governance, collaboration, and data-native UI components provide a distinct layer above raw code generation.",
+    severity: "medium",
   },
 ];
 
