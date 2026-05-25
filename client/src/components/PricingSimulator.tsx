@@ -13,7 +13,7 @@ interface Props {
 }
 
 const DEFAULT_AI_CREDITS_ANNUAL = 60000;
-const DEFAULT_BYOT_ANNUAL       = 36000;
+const DEFAULT_BYOT_ANNUAL       = 120000;
 
 function round2(n: number) { return Math.round(n * 100) / 100; }
 

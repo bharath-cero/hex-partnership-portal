@@ -207,19 +207,19 @@ export const SCENARIOS: RolloutScenario[] = [
     id: "controlled",
     name: "Controlled complement",
     oneliner: "Limited authors, mid-size explorer layer, free viewers. Targets performance-specialist cohorts.",
-    authors: 12, explorers: 150, viewers: 1500,
+    authors: 12, explorers: 200, viewers: 1500,
     byot: false,
     recommendedDiscount: { viewer: 1.0, explorer: 0.50, author: 0.50, platform: 0.50 },
-    thesis: "Matches a controlled expansion: narrow author core, 150–300 explorers, and free viewers to enable broad consumption.",
+    thesis: "Matches a controlled expansion: narrow author core, 200 explorers, and free viewers to enable broad consumption.",
   },
   {
     id: "broad",
     name: "Broad rollout",
     oneliner: "All data team members as authors + large explorer pool for stakeholders.",
-    authors: 120, explorers: 300, viewers: 4500,
+    authors: 100, explorers: 200, viewers: 4500,
     byot: false,
     recommendedDiscount: { viewer: 1.0, explorer: 0.50, author: 0.50, platform: 0.60 },
-    thesis: "Maximum reach. Equips the entire data org with author seats and provides broad explorer access for the analyst group.",
+    thesis: "Maximum reach. Equips the core data team with author seats and provides broad explorer access for the analyst group.",
   },
 ];
 
