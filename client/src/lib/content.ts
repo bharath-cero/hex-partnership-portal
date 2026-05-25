@@ -180,10 +180,10 @@ export const LIST_PRICES = {
 
 /* ---------- Stack diagram nodes ---------- */
 export const STACK_LAYERS = [
-  { tier: "Consumption",       items: ["Niki (conversational AI)", "Hex viewers / data apps", "Looker dashboards", "Tableau workbooks"] },
-  { tier: "Self-serve",        items: ["Hex explorers · threads", "Looker explores", "Looker Studio"] },
+  { tier: "Self Serve (Canonical Views)", items: ["Hex viewers / data apps", "Looker dashboards", "Tableau workbooks", "Looker Studio"] },
+  { tier: "Self Serve (Bespoke Modeling + RCA)", items: ["Hex explorers · threads", "Looker explores"] },
   { tier: "Authoring",         items: ["Hex authors (notebooks, apps, modeling)", "LookML developers", "Tableau authors"] },
-  { tier: "Semantic & context",items: ["LookML", "Hex semantic models (sync from Looker)", "Endorsed projects · rules files"] },
+  { tier: "Semantic & context",items: ["dbt", "LookML", "Hex semantic models (sync from Looker)", "Hex Review Agent", "Hex BYO-MCP (Future)", "Endorsed projects · rules files"] },
   { tier: "Data platform",     items: ["BigQuery", "Service accounts / OAuth / Google Groups"] },
 ];
 

@@ -1,3 +1,4 @@
+import React from "react";
 import { STACK_LAYERS } from "@/lib/content";
 
 const HEX_BADGE = "bg-primary text-primary-foreground";
@@ -16,29 +17,46 @@ export function StackDiagram() {
           <Legend swatch={NEUTRAL} label="Existing" />
         </div>
       </div>
-      <div className="divide-y divide-border">
-        {STACK_LAYERS.map((layer) => (
-          <div key={layer.tier} className="grid grid-cols-[140px_1fr] gap-4 px-5 py-4">
-            <div className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground self-center">
-              {layer.tier}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {layer.items.map((item) => {
-                const isHex = item.toLowerCase().includes("hex");
-                return (
-                  <span
-                    key={item}
-                    className={`text-[12.5px] px-2.5 py-1 rounded-sm tnum ${
-                      isHex ? HEX_BADGE : NEUTRAL
-                    }`}
-                  >
-                    {item}
-                  </span>
-                );
-              })}
-            </div>
+      
+      <div className="p-5 grid grid-cols-[160px_140px_1fr] gap-x-6 gap-y-0 relative">
+        {/* Niki straddle badge - spans first two rows of the 3-column grid */}
+        <div className="hidden md:flex row-start-1 row-end-3 col-start-2 items-center py-4">
+          <div className={`w-full h-full flex items-center justify-center text-center text-[12px] px-3 py-4 rounded-sm tnum ${NEUTRAL} border border-border shadow-sm`}>
+            Niki (conversational AI)
           </div>
-        ))}
+        </div>
+
+        {STACK_LAYERS.map((layer, idx) => {
+          const isStraddled = idx < 2;
+          return (
+            <React.Fragment key={layer.tier}>
+              <div className="col-start-1 py-4 text-[11px] uppercase tracking-[0.16em] text-muted-foreground self-center border-t border-border/50">
+                {layer.tier}
+              </div>
+              <div className={`${isStraddled ? "col-start-3" : "col-start-2 col-end-4"} py-4 flex flex-wrap gap-2 border-t border-border/50`}>
+                {layer.items.map((item) => {
+                  const isHex = item.toLowerCase().includes("hex");
+                  return (
+                    <span
+                      key={item}
+                      className={`text-[12.5px] px-2.5 py-1 rounded-sm tnum ${
+                        isHex ? HEX_BADGE : NEUTRAL
+                      }`}
+                    >
+                      {item}
+                    </span>
+                  );
+                })}
+                {/* Fallback for mobile Niki */}
+                {idx === 0 && (
+                  <span className={`text-[12.5px] px-2.5 py-1 rounded-sm tnum ${NEUTRAL} md:hidden`}>
+                    Niki (conversational AI)
+                  </span>
+                )}
+              </div>
+            </React.Fragment>
+          );
+        })}
       </div>
     </div>
   );
